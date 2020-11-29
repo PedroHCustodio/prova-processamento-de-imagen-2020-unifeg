@@ -1,0 +1,24 @@
+import cv2
+importar cv2 como cv
+import matplotlib.pyplot as plt
+
+
+vidcap = cv2.VideoCapture ('bebaagua.mp4')
+sucesso, imagem = vidcap.read ()
+contagem = 0
+enquanto o sucesso:
+  cv2.imwrite ("frame% d.jpg"% count, image)       
+  sucesso, imagem = vidcap.read ()
+  imprimir ('Ler um novo quadro:', sucesso)
+  contagem + = 1
+
+ 
+
+img = cv.imread ('frame0.jpg', 0)
+bordas = cv.Canny (img, 100.200)
+
+fig, ax = plt.subplots (ncols = 2, figsize = (15,5))
+ax [0] .imshow (bordas, cmap = 'cinza')
+ax [0] .set_title ('Edge Image')
+ax [0] .axis ('desligado')
+plt.show ()
