@@ -1,0 +1,58 @@
+photo = Image.open('pixelart.jpg') #your imageimport imageio
+
+import matplotlib.pyplot as pp
+
+import matplotlib.patches as patches
+
+
+from skimage import color, img_as_float, exposure, filters, measure
+
+
+import numpy as np
+
+
+pixelart = imageio.imread('pixelart.jpg')
+
+
+pixelart_gray = color.rgb2gray(img_as_float(pixelart))
+
+
+print(f'\nRgb shape {pixelart.shape}, size {len(pixelart)} and type {pixelart.dtype}\n')
+
+print(
+    f'Gray shape {pixelart_gray.shape}, size {len(pixelart_gray)} and type {pixelart_gray.dtype}', end='\n' * 2
+)
+
+
+pixelart_hist = exposure.equalize_hist(pixelart_gray)
+
+
+otsu_threshold = filters.threshold_otsu(pixelart_hist)
+
+print(f'Otsu threshold {otsu_threshold}', end='\n\n')
+
+pixelart_segmented = pixelart_hist > otsu_threshold
+
+
+pixelart_label = measure.label(pixelart_segmented)
+
+
+fig, ax = pp.subplots(figsize=(10,6))
+
+ax.imshow(pixelart, cmap='gray') 
+
+ax.set_title('pixelart')
+
+ax.axis('off')
+
+for region in measure.regionprops(pixelart_label):
+
+    if region.area > 50:
+        minr, minc, maxr, maxc = region.bbox
+
+        rect = patches.Rectangle((minc, minr), maxc - minc, maxr - minr,
+                                 fill=False, edgecolor='blue')
+
+        ax.add_patch(rect)
+
+pp.show()
