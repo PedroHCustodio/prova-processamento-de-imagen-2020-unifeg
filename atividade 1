@@ -1,4 +1,3 @@
-  
 import imageio
 
 import matplotlib.pyplot as pp
@@ -9,15 +8,15 @@ from skimage import color, img_as_float, exposure, filters, measure
 import numpy as np
 
 
-charmander = imageio.imread('charmander.jpg')
-charmander_gray = color.rgb2gray(img_as_float(charmander))
-print(f'\nRgb shape {charmander.shape}, size {len(charmander)} and type {charmander.dtype}\n')
-print(f'Gray shape {charmander_gray.shape}, size {len(charmander_gray)} and type {charmander_gray.dtype}', end='\n' * 2)
+pixelart = imageio.imread('pixelart.jpg')
+pixelart_gray = color.rgb2gray(img_as_float(pixelart))
+print(f'\nRgb shape {pixelart.shape}, size {len(pixelart)} and type {pixelart.dtype}\n')
+print(f'Gray shape {pixelart_gray.shape}, size {len(pixelart_gray)} and type {pixelart_gray.dtype}', end='\n' * 2)
 
-charmander_hist = exposure.equalize_hist(charmander_gray)
+pixelart_hist = exposure.equalize_hist(pixelart_gray)
 
-otsu_threshold = filters.threshold_otsu(charmander_hist)
+otsu_threshold = filters.threshold_otsu(pixelart_hist)
 
 print(f'Otsu threshold {otsu_threshold}', end='\n\n')
  
-charmander_segmented = charmander_hist > otsu_threshold
+pixelart_segmented = pixelart_hist > otsu_threshold
