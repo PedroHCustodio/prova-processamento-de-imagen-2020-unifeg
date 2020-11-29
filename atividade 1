@@ -1,0 +1,21 @@
+import cv2
+from google.colab.patches import cv2_imshow
+
+arquivo_video = cv2.VideoCapture('/content/drive/MyDrive/processamento de imagens portifolio/Diego Higa fazendo Drif numa oficina.mp4')
+
+total_frames = 0
+
+while True:
+ 
+  (ret, frame) = arquivo_video.read()
+
+  if not ret:
+    break
+
+  total_frames += 1
+
+print (f'o numero de frames eh {total_frames}')
+
+arquivo_video.release()
+
+print ('fim de job')
