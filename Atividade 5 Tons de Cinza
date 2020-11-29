@@ -1,0 +1,22 @@
+import cv2
+
+vidcap = cv2.VideoCapture ('bebaagua.mp4')
+sucesso, imagem = vidcap.read ()
+contagem = 0
+enquanto o sucesso:
+  cv2.imwrite ("frame% d.jpg"% count, image)       
+  sucesso, imagem = vidcap.read ()
+  imprimir ('Ler um novo quadro:', sucesso)
+  contagem + = 1
+
+
+image = cv2.imread ('frame0.jpg') 
+  
+
+gray_image = cv2.cvtColor (imagem, cv2.COLOR_BGR2GRAY) 
+  
+cv2.imshow ('Escala de cinza', imagem de cinza) 
+cv2.waitKey (0)   
+  
+ 
+cv2.destroyAllWindows ()
