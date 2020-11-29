@@ -1,21 +1,23 @@
-import cv2
-from google.colab.patches import cv2_imshow
+  
+import imageio
 
-arquivo_video = cv2.VideoCapture('/content/drive/MyDrive/processamento de imagens portifolio/Diego Higa fazendo Drif numa oficina.mp4')
+import matplotlib.pyplot as pp
 
-total_frames = 0
+import matplotlib.patches as patches
 
-while True:
+from skimage import color, img_as_float, exposure, filters, measure
+import numpy as np
+
+
+charmander = imageio.imread('charmander.jpg')
+charmander_gray = color.rgb2gray(img_as_float(charmander))
+print(f'\nRgb shape {charmander.shape}, size {len(charmander)} and type {charmander.dtype}\n')
+print(f'Gray shape {charmander_gray.shape}, size {len(charmander_gray)} and type {charmander_gray.dtype}', end='\n' * 2)
+
+charmander_hist = exposure.equalize_hist(charmander_gray)
+
+otsu_threshold = filters.threshold_otsu(charmander_hist)
+
+print(f'Otsu threshold {otsu_threshold}', end='\n\n')
  
-  (ret, frame) = arquivo_video.read()
-
-  if not ret:
-    break
-
-  total_frames += 1
-
-print (f'o numero de frames eh {total_frames}')
-
-arquivo_video.release()
-
-print ('fim de job')
+charmander_segmented = charmander_hist > otsu_threshold
